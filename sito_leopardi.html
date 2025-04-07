@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEOPARDI HA PERSO LA SBORRA (ma la poesia slaps)</title>
+    <style>
+        /* STILE GENERALE PAZZO */
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #fff3cd;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow-x: hidden;
+        }
+        header {
+            background: linear-gradient(to right, #ff6b6b, #4ecdc4);
+            padding: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px #000;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            animation: rainbow 3s infinite;
+        }
+        h2 {
+            color: #ff6b6b;
+            font-size: 1.8em;
+            margin-top: 30px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .meme-img {
+            max-width: 300px;
+            border: 5px solid #333;
+            border-radius: 10px;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        .meme-img:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+        .section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 800px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .section::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            z-index: -1;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ff6b6b);
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+            border-radius: 20px;
+        }
+        .quote {
+            font-style: italic;
+            font-size: 1.2em;
+            color: #555;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #4ecdc4;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            text-decoration: none;
+            background-color: #4ecdc4;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .nav a:hover {
+            background-color: #ff6b6b;
+            transform: scale(1.1);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        .fact-box {
+            background-color: #e9f7ef;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px dashed #4ecdc4;
+        }
+        .poem {
+            font-family: 'Times New Roman', serif;
+            background-color: #f5e9ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .paraphrase {
+            font-style: italic;
+            color: #666;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        /* QUIZ STYLE */
+        #quiz-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #quiz {
+            background: linear-gradient(to right, #ff6b6b, #4ecdc4);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+            max-width: 600px;
+        }
+        #quiz button {
+            background: white;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        #quiz button:hover {
+            background: #333;
+            color: white;
+        }
+        /* EASTER EGG MESSAGES */
+        .easter-egg {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            animation: slideIn 0.5s ease-out;
+            display: none;
+            z-index: 100;
+        }
+        @keyframes rainbow {
+            0% { color: #ff6b6b; }
+            25% { color: #4ecdc4; }
+            50% { color: #ffe66d; }
+            75% { color: #ff6b6b; }
+            100% { color: #4ecdc4; }
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        /* Skibidi Toilet special */
+        .skibidi-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .skibidi-img {
+            max-width: 250px;
+            border: 3px solid #ff00ff;
+            border-radius: 15px;
+            animation: skibidi-shake 0.5s infinite alternate;
+        }
+        @keyframes skibidi-shake {
+            0% { transform: rotate(-2deg); }
+            100% { transform: rotate(2deg); }
+        }
+        
+        /* Stile per le immagini sopra l'Infinito */
+        .before-after-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .before-after-box {
+            position: relative;
+            text-align: center;
+        }
+        .before-after-label {
+            position: absolute;
+            bottom: -25px;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- QUIZ D'INGRESSO -->
+    <div id="quiz-container">
+        <div id="quiz">
+            <h1>✍️ QUIZ LEOPARDIANO ✍️</h1>
+            <p>Dimostra di non essere una siepe:</p>
+            <p><strong>Perché Leopardi è il re degli sfigati?</strong></p>
+            <button onclick="checkAnswer(1)">A) Perché odiava la pizza</button>
+            <button onclick="checkAnswer(2)">B) Perché ha scritto L'Infinito invece di uscire</button>
+            <button onclick="checkAnswer(3)">C) Perché la sua unica amica era la siepe</button>
+            <div id="quiz-result"></div>
+        </div>
+    </div>
+
+    <!-- SITO PRINCIPALE (NASCOSTO INIZIALMENTE) -->
+    <div id="main-content" style="display: none;">
+        <header>
+            <h1>LEOPARDI: IL BRO DEL PESSIMISMO COSMICO</h1>
+            <p>Quando la vita ti dà limoni, Leopardi li usa per scrivere poesie sulla futilità dell'esistenza.</p>
+        </header>
+
+        <div class="nav">
+            <a href="#home">Home</a>
+            <a href="#bio">Bio</a>
+            <a href="#opere">Opere</a>
+            <a href="#analisi">Analisi</a>
+            <a href="#sabato">Sabato del Villaggio</a>
+        </div>
+
+        <div class="container" id="home">
+            <div class="section">
+                <h2>Benvenuti nel Sito più Triste (ma Divertente) del Web!</h2>
+                
+                <p>Se pensavi che la vita fosse dura, aspetta di leggere Leopardi. Questo poeta aveva <strong>il dono di trasformare una bella giornata in un'esistenzial crisis</strong>.</p>
+                <div class="quote">"Ahi ahi, ma qual mai canto odio, qual suono..." (cit. Leopardi ogni volta che sentiva un rumore)</div>
+                
+            </div>
+
+            <div class="section" id="bio">
+                <h2>BIOGRAFIA: Da Nerd a Leggenda</h2>
+                <img src="1.png" alt="Leopardi nerd" class="meme-img">
+                <div class="fact-box">
+                    <h3>Le Cose che Nessuno Sa:</h3>
+                    <ul>
+                        <li><strong>Poliglotta Extralarge:</strong> Parlava greco antico meglio dei greci, ebraico e altre 10 lingue.</li>
+                        <li><strong>Astronomo Mancato:</strong> Passava le notti a guardare le stelle e a pensare "Siamo tutti insignificanti lol".</li>
+                        <li><strong>Ironia Mode ON:</strong> Nelle lettere agli amici era sarcastico e dissacrante. Il vero precursore dei meme.</li>
+                        <li><strong>Love Story Tragica:</strong> Innamorato della cugina che lo friendzonò.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section" id="opere">
+                <h2>OPERE: Quando la Depressione Diventa Arte</h2>
+               
+                
+                <!-- AGGIUNTA IMMAGINI PRIMA E DOPO L'INFINITO -->
+                <div class="before-after-container">
+                    <div class="before-after-box">
+                        <img src="felice.png" alt="Prima di leggere l'Infinito" class="meme-img">
+                        <div class="before-after-label">Prima aver letto l'Infinito</div>
+                    </div>
+                    <div class="before-after-box">
+                        <img src="triste.png" alt="Dopo aver letto l'Infinito" class="meme-img">
+                        <div class="before-after-label">Dopo aver letto l'Infinito</div>
+                    </div>
+                </div>
+                
+                <div class="poem">
+                    <h3>L'Infinito</h3>
+                    <p>Sempre caro mi fu quest'ermo colle,<br>
+                    e questa siepe, che da tanta parte<br>
+                    dell'ultimo orizzonte il guardo esclude.<br>
+                    Ma sedendo e mirando, interminati<br>
+                    spazi di là da quella, e sovrumani<br>
+                    silenzi, e profondissima quiete<br>
+                    io nel pensier mi fingo; ove per poco<br>
+                    il cor non si spaura. E come il vento<br>
+                    odo stormir tra queste piante, io quello<br>
+                    infinito silenzio a questa voce<br>
+                    vo comparando: e mi sovvien l'eterno,<br>
+                    e le morte stagioni, e la presente<br>
+                    e viva, e il suon di lei. Così tra questa<br>
+                    immensità s'annega il pensier mio:<br>
+                    e il naufragar m'è dolce in questo mare.</p>
+                </div>
+                <div class="paraphrase">
+                    <h3>Traduzione per Millennials:</h3>
+                    <p>"Mi piaceva un sacco questo colle solitario e 'sta siepe che mi blocca la vista. Ma mentre mi siedo e fisso, immagino spazi infiniti, silenzi pazzeschi e una pace assurda - quasi mi viene l'ansia. Sento il vento tra le piante e penso 'ma quanto è vasto l'universo?'. Ecco, ora mi vengono in mente l'eternità, i tempi passati e il presente. Il mio pensiero si perde in 'sta immensità e, stranamente, mi piace sentirmi perso."</p>
+                </div>
+                
+               
+            </div>
+
+            <div class="section" id="sabato">
+                <h2>IL SABATO DEL VILLAGGIO</h2>
+               
+                <div class="poem">
+                    <h3>Il sabato del villaggio</h3>
+                    <p>La donzelletta vien dalla campagna,<br>
+                    In sul calar del sole,<br>
+                    Col suo fascio dell'erba; e reca in mano<br>
+                    Un mazzolin di rose e di viole,<br>
+                    Onde, siccome suole,<br>
+                    Ornare ella si appresta<br>
+                    Dimani, al dì di festa, il petto e il crine.<br>
+                    Siede con le vicine<br>
+                    Su la scala a filar la vecchierella,<br>
+                    Incontro là dove si perde il giorno;<br>
+                    E novellando vien del suo buon tempo,<br>
+                    Quando ai dì della festa ella si ornava,<br>
+                    Ed ancor sana e snella<br>
+                    Solea danzar la sera intra di quei<br>
+                    Ch'ebbe compagni dell'età più bella.<br><br>
+                    
+                    Già tutta l'aria imbruna,<br>
+                    Torna azzurro il sereno, e tornan l'ombre<br>
+                    Giù da' colli e da' tetti,<br>
+                    Al biancheggiar della recente luna.<br>
+                    Or la squilla dà segno<br>
+                    Della festa che viene;<br>
+                    Ed a quel suon diresti<br>
+                    Che il cor si riconforta.<br>
+                    I fanciulli gridando<br>
+                    Su la piazzuola in frotta,<br>
+                    E qua e là saltando,<br>
+                    Fanno un lieto romore:<br>
+                    E intanto riede alla sua parca mensa,<br>
+                    Fischiando, il zappatore,<br>
+                    E seco pensa al dì del suo riposo.<br><br>
+                    
+                    Poi quando intorno è spenta ogni altra face,<br>
+                    E tutto l'altro tace,<br>
+                    Odi il martel picchiare, odi la sega<br>
+                    Del legnaiuol, che veglia<br>
+                    Nella chiusa bottega alla lucerna,<br>
+                    E s'affretta, e s'adopra<br>
+                    Di fornir l'opra anzi il chiarir dell'alba.<br>
+                    Questo di sette è il più gradito giorno,<br>
+                    Pien di speme e di gioia:<br>
+                    Diman tristezza e noia<br>
+                    Recheran l'ore, ed al travaglio usato<br>
+                    Ciascuno in suo pensier farà ritorno.<br><br>
+                    
+                    Garzoncello scherzoso,<br>
+                    Cotesta età fiorita<br>
+                    È come un giorno d'allegrezza pieno,<br>
+                    Giorno chiaro, sereno,<br>
+                    Che precorre alla festa di tua vita.<br>
+                    Godi, fanciullo mio; stato soave,<br>
+                    Stagion lieta è cotesta.<br>
+                    Altro dirti non vo'; ma la tua festa<br>
+                    Ch'anco tardi a venir non ti sia grave.</p>
+                </div>
+                <div class="paraphrase">
+                    <h3>Traduzione per Millennials:</h3>
+                    <p>"C'è sta ragazza che torna dai campi al tramonto con l'erba e un mazzo di fiori per prepararsi alla festa di domani. La vecchietta fila con le amiche e racconta dei bei tempi andati quando ballava. Intanto scende la sera, la luna splende e le campane annunciano la festa. I bambini giocano felici, il contadino torna a casa pensando al giorno di riposo. Il falegname lavora di notte per finire il lavoro prima dell'alba. Il sabato è il giorno più bello, pieno di speranza - perché poi arriva la domenica con la sua noia e lunedì si torna al lavoro. Ragazzino, la tua giovinezza è come un sabato prima della festa della vita: goditela finché dura!"</p>
+                </div>
+            </div>
+
+            <div class="section" id="analisi">
+                <h2>ANALISI: Perché Leopardi è il Re del Mood</h2>
+              
+                <div class="fact-box">
+                    <h3>Leopardi Era Un Vero Mood:</h3>
+                    <ul>
+                        <li><strong>Pessimismo Cosmico:</strong> "Tanto moriamo tutti, che ci stressiamo a fare?"</li>
+                        <li><strong>Natura Matrigna:</strong> "La Natura è quella zia che ti regala calzini a Natale."</li>
+                        <li><strong>Filosofia:</strong> "Se Schopenhauer e un teenager emo avessero un figlio, sarebbe Leopardi."</li>
+                        <li><strong>Sabato vs Domenica:</strong> "Il sabato è hype, la domenica è depressione post-festa."</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 - Sito fatto da studenti che hanno capito solo il 40% di Leopardi, ma al 100% ci abbiamo messo il memeing.</p>
+            <p><em>"Il naufragar m'è dolce... ma almeno abbiamo preso 10."</em></p>
+        </footer>
+    </div>
+
+    <!-- EASTER EGG MESSAGE -->
+    <div id="easter-egg" class="easter-egg"></div>
+
+    <script>
+        // QUIZ LOGIC
+        function checkAnswer(answer) {
+            const correctAnswer = 2; // La B è giusta
+            const quizResult = document.getElementById('quiz-result');
+            const quizContainer = document.getElementById('quiz-container');
+            const mainContent = document.getElementById('main-content');
+
+            if (answer === correctAnswer) {
+                quizContainer.style.display = 'none';
+                mainContent.style.display = 'block';
+                showRandomMessage();
+                setInterval(showRandomMessage, 15000); // Mostra messaggi ogni 15 sec
+            } else {
+                const failMessages = [
+                    "NO. Leopardi ti guarda con disprezzo dalla tomba.",
+                    "Risposta sbagliata! La siepe è delusa.",
+                    "Pessimo. Peggio del pessimismo cosmico.",
+                    "Leopardi avrebbe scritto una poesia sulla tua ignoranza.",
+                    "Neanche la Natura matrigna è così crudele con te.",
+                    "Hai fallito come le speranze di Leopardi."
+                ];
+                const randomMessage = failMessages[Math.floor(Math.random() * failMessages.length)];
+                quizResult.innerHTML = randomMessage + "<br><br><button onclick='window.location.reload()'>Riprova</button>";
+            }
+        }
+
+        // EASTER EGG MESSAGES
+        function showRandomMessage() {
+            const messages = [
+                "Psst... Leopardi odiava pure i social!",
+                "Lo sapevi? Leopardi era un hater professionista",
+                "La siepe > i tuoi followers su Instagram",
+                "Leopardi: primo influencer della tristezza",
+                "Il suo unico like? Quello della morte",
+                "A Silvia = la prima ghostata documentata",
+                "Sabato: hype. Domenica: esistenzial crisis",
+                "Skibidi Toilet > La siepe dell'Infinito"
+            ];
+            const egg = document.getElementById('easter-egg');
+            egg.textContent = messages[Math.floor(Math.random() * messages.length)];
+            egg.style.display = 'block';
+            setTimeout(() => { egg.style.display = 'none'; }, 3000);
+        }
+
+        // Mostra un messaggio subito all'entrata
+        window.onload = () => {
+            setTimeout(showRandomMessage, 5000);
+        };
+    </script>
+</body>
+</html>
