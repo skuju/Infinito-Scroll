@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LEOPARDI HA PERSO LA SBORRA (ma la poesia slaps)</title>
+    <title>LEOPARDI HA PERSO LA RAGIONE (ma la poesia slaps)</title>
     <style>
         /* STILE GENERALE PAZZO */
         body {
@@ -230,6 +230,134 @@
             border-radius: 5px;
             font-weight: bold;
         }
+        
+        /* Nuovo stile per timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #ff6b6b;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 10px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .timeline-date {
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        /* Stile per la sezione video finale */
+        .video-section {
+            background: linear-gradient(to right, #4ecdc4, #ff6b6b);
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+            border-radius: 20px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .video-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: rainbow 3s infinite;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Stile per il popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .popup-content {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            animation: popIn 0.5s ease-out;
+        }
+        .popup-title {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .popup-text {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .popup-button {
+            background: white;
+            color: #ff6b6b;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .popup-button:hover {
+            background: #333;
+            color: white;
+            transform: scale(1.1);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -246,11 +374,21 @@
         </div>
     </div>
 
+    <!-- POPUP DI BENVENUTO -->
+    <div id="welcome-popup" class="popup-overlay" style="display: none;">
+        <div class="popup-content">
+            <h2 class="popup-title">🌟 Scopri il Segreto di Leopardi! 🌟</h2>
+            <p class="popup-text">Clicca qui sotto per svelare la verità nascosta dietro il genio più depresso della letteratura italiana!</p>
+            <button class="popup-button" onclick="scrollToVideo()">SCOPRI DI PIÙ SU LEOPARDI</button>
+            <button class="popup-button" onclick="closePopup()" style="background-color: #ffcc00; color: #333; margin-top: 10px;">SALTA E VAI AL SITO</button>
+        </div>
+    </div>
+
     <!-- SITO PRINCIPALE (NASCOSTO INIZIALMENTE) -->
     <div id="main-content" style="display: none;">
         <header>
             <h1>LEOPARDI: IL BRO DEL PESSIMISMO COSMICO</h1>
-            <p>Quando la vita ti dà limoni, Leopardi li usa per scrivere poesie sulla futilità dell'esistenza.</p>
+            <p>Quando la vita ti dà occasioni, Leopardi li usa per scrivere poesie sulla futilità dell'esistenza.</p>
         </header>
 
         <div class="nav">
@@ -259,6 +397,7 @@
             <a href="#opere">Opere</a>
             <a href="#analisi">Analisi</a>
             <a href="#sabato">Sabato del Villaggio</a>
+            <a href="#infinito">L'Infinito</a>
         </div>
 
         <div class="container" id="home">
@@ -268,11 +407,52 @@
                 <p>Se pensavi che la vita fosse dura, aspetta di leggere Leopardi. Questo poeta aveva <strong>il dono di trasformare una bella giornata in un'esistenzial crisis</strong>.</p>
                 <div class="quote">"Ahi ahi, ma qual mai canto odio, qual suono..." (cit. Leopardi ogni volta che sentiva un rumore)</div>
                 
+              
             </div>
 
             <div class="section" id="bio">
                 <h2>BIOGRAFIA: Da Nerd a Leggenda</h2>
                 <img src="1.png" alt="Leopardi nerd" class="meme-img">
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1798</div>
+                            <p>Nasce a Recanati, già depresso</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1816</div>
+                            <p>"Conversione letteraria" - decide di diventare un poeta invece che uscire di casa</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1819</div>
+                            <p>Tenta di scappare da Recanati ma fallisce</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1825</div>
+                            <p>Va a Roma: "Che schifo" - cit. Leopardi su tutto</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1830</div>
+                            <p>Si innamora (non corrisposto, ovvio) di Fanny Targioni Tozzetti</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <div class="timeline-date">1837</div>
+                            <p>Muore a Napoli, probabilmente per overdose di pessimismo</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="fact-box">
                     <h3>Le Cose che Nessuno Sa:</h3>
                     <ul>
@@ -280,6 +460,7 @@
                         <li><strong>Astronomo Mancato:</strong> Passava le notti a guardare le stelle e a pensare "Siamo tutti insignificanti lol".</li>
                         <li><strong>Ironia Mode ON:</strong> Nelle lettere agli amici era sarcastico e dissacrante. Il vero precursore dei meme.</li>
                         <li><strong>Love Story Tragica:</strong> Innamorato della cugina che lo friendzonò.</li>
+                        <li><strong>Gamer ante litteram:</strong> Passava 16 ore al giorno a studiare (no-life estremo)</li>
                     </ul>
                 </div>
             </div>
@@ -287,47 +468,21 @@
             <div class="section" id="opere">
                 <h2>OPERE: Quando la Depressione Diventa Arte</h2>
                
-                
-                <!-- AGGIUNTA IMMAGINI PRIMA E DOPO L'INFINITO -->
-                <div class="before-after-container">
-                    <div class="before-after-box">
-                        <img src="felice.png" alt="Prima di leggere l'Infinito" class="meme-img">
-                        <div class="before-after-label">Prima aver letto l'Infinito</div>
-                    </div>
-                    <div class="before-after-box">
-                        <img src="triste.png" alt="Dopo aver letto l'Infinito" class="meme-img">
-                        <div class="before-after-label">Dopo aver letto l'Infinito</div>
-                    </div>
+                <div class="fact-box">
+                    <h3>Le Opere più Depre:</h3>
+                    <ul>
+                        <li><strong>Canti:</strong> La playlist definitiva per piangere</li>
+                        <li><strong>Operette morali:</strong> Filosofia depressa in formato mini</li>
+                        <li><strong>Zibaldone:</strong> Il diario segreto di un genio non compreso</li>
+                        <li><strong>A Silvia:</strong> La canzone triste per la ragazza morta</li>
+                    </ul>
                 </div>
                 
-                <div class="poem">
-                    <h3>L'Infinito</h3>
-                    <p>Sempre caro mi fu quest'ermo colle,<br>
-                    e questa siepe, che da tanta parte<br>
-                    dell'ultimo orizzonte il guardo esclude.<br>
-                    Ma sedendo e mirando, interminati<br>
-                    spazi di là da quella, e sovrumani<br>
-                    silenzi, e profondissima quiete<br>
-                    io nel pensier mi fingo; ove per poco<br>
-                    il cor non si spaura. E come il vento<br>
-                    odo stormir tra queste piante, io quello<br>
-                    infinito silenzio a questa voce<br>
-                    vo comparando: e mi sovvien l'eterno,<br>
-                    e le morte stagioni, e la presente<br>
-                    e viva, e il suon di lei. Così tra questa<br>
-                    immensità s'annega il pensier mio:<br>
-                    e il naufragar m'è dolce in questo mare.</p>
-                </div>
-                <div class="paraphrase">
-                    <h3>Traduzione per Millennials:</h3>
-                    <p>"Mi piaceva un sacco questo colle solitario e 'sta siepe che mi blocca la vista. Ma mentre mi siedo e fisso, immagino spazi infiniti, silenzi pazzeschi e una pace assurda - quasi mi viene l'ansia. Sento il vento tra le piante e penso 'ma quanto è vasto l'universo?'. Ecco, ora mi vengono in mente l'eternità, i tempi passati e il presente. Il mio pensiero si perde in 'sta immensità e, stranamente, mi piace sentirmi perso."</p>
-                </div>
-                
-               
+         
             </div>
 
             <div class="section" id="sabato">
-                <h2>IL SABATO DEL VILLAGGIO</h2>
+                <h2>IL SABATO DEL VILLAGGIO: Analisi Profonda (ma non troppo)</h2>
                
                 <div class="poem">
                     <h3>Il sabato del villaggio</h3>
@@ -390,6 +545,69 @@
                     <h3>Traduzione per Millennials:</h3>
                     <p>"C'è sta ragazza che torna dai campi al tramonto con l'erba e un mazzo di fiori per prepararsi alla festa di domani. La vecchietta fila con le amiche e racconta dei bei tempi andati quando ballava. Intanto scende la sera, la luna splende e le campane annunciano la festa. I bambini giocano felici, il contadino torna a casa pensando al giorno di riposo. Il falegname lavora di notte per finire il lavoro prima dell'alba. Il sabato è il giorno più bello, pieno di speranza - perché poi arriva la domenica con la sua noia e lunedì si torna al lavoro. Ragazzino, la tua giovinezza è come un sabato prima della festa della vita: goditela finché dura!"</p>
                 </div>
+                
+                <div class="fact-box">
+                    <h3>Analisi del Sabato del Villaggio:</h3>
+                    <ul>
+                        <li><strong>Tema Principale:</strong> L'attesa è meglio della realizzazione (come aspettare il weekend e poi annoiarsi)</li>
+                        <li><strong>Struttura:</strong> Quadro di vita paesana → Riflessione filosofica (tipico Leopardi move)</li>
+                        <li><strong>Metafora della Vita:</strong> Il sabato = giovinezza; la festa = età adulta (spoiler: delude)</li>
+                        <li><strong>Contrasti:</strong> Gioia/speranza vs tristezza/realtà (Leopardi era il re del mood swing)</li>
+                        <li><strong>Linguaggio:</strong> Semplicità apparente ma profondità atomica</li>
+                    </ul>
+                </div>
+                
+              
+            </div>
+
+            <div class="section" id="infinito">
+                <div class="before-after-container">
+                    <div class="before-after-box">
+                        <img src="triste.png" alt="Prima di leggere l'Infinito" class="meme-img">
+                        <div class="before-after-label">Prima aver letto l'Infinito</div>
+                    </div>
+                    <div class="before-after-box">
+                        <img src="felice.png" alt="Dopo aver letto l'Infinito" class="meme-img">
+                        <div class="before-after-label">Dopo aver letto l'Infinito</div>
+                    </div>
+                </div>
+                <h2>L'INFINITO: Analisi per Sopravvivere all'Esistenzialismo</h2>
+                
+                <div class="poem">
+                    <h3>L'Infinito</h3>
+                    <p>Sempre caro mi fu quest'ermo colle,<br>
+                    e questa siepe, che da tanta parte<br>
+                    dell'ultimo orizzonte il guardo esclude.<br>
+                    Ma sedendo e mirando, interminati<br>
+                    spazi di là da quella, e sovrumani<br>
+                    silenzi, e profondissima quiete<br>
+                    io nel pensier mi fingo; ove per poco<br>
+                    il cor non si spaura. E come il vento<br>
+                    odo stormir tra queste piante, io quello<br>
+                    infinito silenzio a questa voce<br>
+                    vo comparando: e mi sovvien l'eterno,<br>
+                    e le morte stagioni, e la presente<br>
+                    e viva, e il suon di lei. Così tra questa<br>
+                    immensità s'annega il pensier mio:<br>
+                    e il naufragar m'è dolce in questo mare.</p>
+                </div>
+                <div class="paraphrase">
+                    <h3>Traduzione per Millennials:</h3>
+                    <p>"Mi piaceva un sacco questo colle solitario e 'sta siepe che mi blocca la vista. Ma mentre mi siedo e fisso, immagino spazi infiniti, silenzi pazzeschi e una pace assurda - quasi mi viene l'ansia. Sento il vento tra le piante e penso 'ma quanto è vasto l'universo?'. Ecco, ora mi vengono in mente l'eternità, i tempi passati e il presente. Il mio pensiero si perde in 'sta immensità e, stranamente, mi piace sentirmi perso."</p>
+                </div>
+                
+                <div class="fact-box">
+                    <h3>Analisi dell'Infinito:</h3>
+                    <ul>
+                        <li><strong>Tema Principale:</strong> L'infinito spaziale e temporale vs limiti umani (deep stuff)</li>
+                        <li><strong>Struttura:</strong> 15 endecasillabi sciolti (nessuna rima, come la vita di Leopardi)</li>
+                        <li><strong>La Siepe:</strong> Simbolo dei limiti umani che paradossalmente apre all'infinito</li>
+                        <li><strong>Contrasti:</strong> Finito/infinito, presente/eterno, suono/silenzio</li>
+                        <li><strong>Il Naufragio:</strong> Perdersi nell'infinito è dolce (unico momento felice di Leopardi)</li>
+                    </ul>
+                </div>
+                
+              
             </div>
 
             <div class="section" id="analisi">
@@ -398,18 +616,34 @@
                 <div class="fact-box">
                     <h3>Leopardi Era Un Vero Mood:</h3>
                     <ul>
-                        <li><strong>Pessimismo Cosmico:</strong> "Tanto moriamo tutti, che ci stressiamo a fare?"</li>
-                        <li><strong>Natura Matrigna:</strong> "La Natura è quella zia che ti regala calzini a Natale."</li>
-                        <li><strong>Filosofia:</strong> "Se Schopenhauer e un teenager emo avessero un figlio, sarebbe Leopardi."</li>
-                        <li><strong>Sabato vs Domenica:</strong> "Il sabato è hype, la domenica è depressione post-festa."</li>
+                        <li><strong>Pessimismo Storico:</strong> "Una volta si stava meglio" (poi diventa cosmico)</li>
+                        <li><strong>Natura Matrigna:</strong> "La Natura è quella zia che ti regala calzini a Natale"</li>
+                        <li><strong>Teoria del Piacere:</strong> Il piacere è infinito, la realtà no (da qui la depressione)</li>
+                        <li><strong>Sabato vs Domenica:</strong> "Il sabato è hype, la domenica è depressione post-festa"</li>
+                        <li><strong>Linguaggio:</strong> Sembra semplice ma ti distrugge l'anima</li>
                     </ul>
                 </div>
+                
+                <div class="quote">
+                    "Leopardi: quando la tua ex ti manda 'Ciao, come stai?' e tu le rispondi con una dissertazione sulla caducità dell'esistenza"
+                </div>
+                
+            </div>
+
+            <!-- SEZIONE VIDEO FINALE -->
+            <div class="video-section" id="leopardino-video">
+                <h2 class="video-title">SE NON STUDI LEOPARDI CI PENSA IL LEOPARDINO</h2>
+                <div class="video-container">
+                    <!-- Sostituisci con il tuo video -->
+                    <iframe src="video.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p>Guarda questo video per scoprire come il Leopardino può salvarti dall'interrogazione e diventare un vero Leopardino</p>
             </div>
         </div>
 
         <footer>
             <p>© 2025 - Sito fatto da studenti che hanno capito solo il 40% di Leopardi, ma al 100% ci abbiamo messo il memeing.</p>
-            <p><em>"Il naufragar m'è dolce... ma almeno abbiamo preso 10."</em></p>
+            <p>"M. Arduini, L. Kotlar, G. Caleri"</p>
         </footer>
     </div>
 
@@ -429,6 +663,11 @@
                 mainContent.style.display = 'block';
                 showRandomMessage();
                 setInterval(showRandomMessage, 15000); // Mostra messaggi ogni 15 sec
+                
+                // Mostra il popup dopo 2 secondi
+                setTimeout(() => {
+                    document.getElementById('welcome-popup').style.display = 'flex';
+                }, 2000);
             } else {
                 const failMessages = [
                     "NO. Leopardi ti guarda con disprezzo dalla tomba.",
@@ -443,6 +682,16 @@
             }
         }
 
+        // Funzione per scorrere fino al video
+        function scrollToVideo() {
+            document.getElementById('welcome-popup').style.display = 'none';
+            document.getElementById('leopardino-video').scrollIntoView({ behavior: 'smooth' });
+        }
+           // Funzione per chiudere il popup
+           function closePopup() {
+            document.getElementById('welcome-popup').style.display = 'none';
+        }
+
         // EASTER EGG MESSAGES
         function showRandomMessage() {
             const messages = [
@@ -453,7 +702,8 @@
                 "Il suo unico like? Quello della morte",
                 "A Silvia = la prima ghostata documentata",
                 "Sabato: hype. Domenica: esistenzial crisis",
-                "Skibidi Toilet > La siepe dell'Infinito"
+                "Skibidi Toilet > La siepe dell'Infinito",
+                "Leopardi avrebbe amato Twitter (per lamentarsi)"
             ];
             const egg = document.getElementById('easter-egg');
             egg.textContent = messages[Math.floor(Math.random() * messages.length)];
